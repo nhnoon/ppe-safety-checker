@@ -48,7 +48,6 @@ PPE_Safety_Checker/
 ├── images/
 ├── outputs/
 ├── flagged_images/
-├── models/
 └── yolov8n.pt
 ```
 
