@@ -4,33 +4,33 @@
 
 PPE Safety Checker is an AI-powered computer vision application developed using **Python** and **YOLOv8** to monitor Personal Protective Equipment (PPE) compliance in construction and industrial environments.
 
-The system detects workers, safety helmets, and safety vests, identifies PPE violations, classifies the inspection status, assigns a risk level, and generates inspection reports automatically.
+The system detects workers, safety helmets, and safety vests, identifies PPE violations, classifies the inspection status, assigns a risk level, and automatically generates inspection reports.
 
 ---
 
 # Objectives
 
-- Detect workers in workplace images.
-- Verify the presence of safety helmets and safety vests.
-- Identify PPE violations automatically.
-- Classify each inspection as SAFE or UNSAFE.
-- Assess the associated risk level.
-- Generate professional inspection reports.
+* Detect workers in workplace images.
+* Verify the presence of safety helmets and safety vests.
+* Automatically identify PPE violations.
+* Classify each inspection as **SAFE** or **UNSAFE**.
+* Assess the associated risk level.
+* Generate professional inspection reports.
 
 ---
 
 # Features
 
-- 👷 Worker Detection
-- ⛑️ Helmet Detection
-- 🦺 Safety Vest Detection
-- ⚠️ Automatic PPE Violation Detection
-- ✅ SAFE / UNSAFE Classification
-- 📊 Risk Level Assessment (LOW / MEDIUM / HIGH)
-- 🖼️ Save Annotated Detection Images
-- 🚩 Save Unsafe Images Separately
-- 📄 Generate CSV Inspection Logs
-- 🌐 Generate HTML Safety Report
+* 👷 Worker Detection
+* ⛑️ Helmet Detection
+* 🦺 Safety Vest Detection
+* ⚠️ Automatic PPE Violation Detection
+* ✅ SAFE / UNSAFE Classification
+* 📊 Risk Level Assessment (LOW / MEDIUM / HIGH)
+* 🖼️ Save Annotated Detection Images
+* 🚩 Save Unsafe Images Separately
+* 📄 Generate CSV Inspection Logs
+* 🌐 Generate HTML Safety Report
 
 ---
 
@@ -42,39 +42,40 @@ PPE_Safety_Checker/
 ├── detect.py
 ├── README.md
 ├── requirements.txt
+├── .gitignore
 ├── safety_report.html
 ├── violations_log.csv
+├── yolov8n.pt
 │
 ├── images/
 ├── outputs/
-├── flagged_images/
-└── yolov8n.pt
+└── flagged_images/
 ```
 
 ---
 
 # Technologies Used
 
-- Python
-- YOLOv8 (Ultralytics)
-- OpenCV
-- NumPy
-- Pandas
-- HTML
-- CSS
+* Python
+* YOLOv8 (Ultralytics)
+* OpenCV
+* NumPy
+* Pandas
+* HTML
+* CSS
 
 ---
 
 # Workflow
 
 1. Load input images.
-2. Detect workers using the YOLOv8 model.
-3. Detect safety helmets and safety vests.
+2. Detect workers using YOLOv8.
+3. Detect helmets and safety vests.
 4. Identify PPE violations.
 5. Classify the inspection as SAFE or UNSAFE.
 6. Assign a risk level.
 7. Save annotated images.
-8. Save unsafe images separately.
+8. Save flagged images.
 9. Generate a CSV inspection log.
 10. Generate an HTML safety report.
 
@@ -96,25 +97,33 @@ python detect.py
 
 ---
 
+# Sample Data
+
+The project was tested using sample construction site images containing workers with and without the required Personal Protective Equipment (PPE), including helmets and safety vests.
+
+The sample images were used to verify worker detection, PPE compliance, risk classification, and report generation.
+
+---
+
 # Output
 
 After execution, the system generates:
 
-- Annotated images in the **outputs** folder.
-- Unsafe images in the **flagged_images** folder.
-- A CSV log containing all inspection results.
-- An HTML safety report summarizing the inspection.
+* Annotated detection images inside the **outputs** folder.
+* Unsafe images inside the **flagged_images** folder.
+* A CSV inspection log (**violations_log.csv**).
+* A professional HTML report (**safety_report.html**).
 
 ---
 
 # Risk Classification
 
-| Violations | Status | Risk Level |
-|------------|--------|------------|
-| None | SAFE | LOW |
-| Missing Helmet | UNSAFE | MEDIUM |
-| Missing Safety Vest | UNSAFE | MEDIUM |
-| Missing Helmet & Safety Vest | UNSAFE | HIGH |
+| Violations                   | Status | Risk Level |
+| ---------------------------- | ------ | ---------- |
+| None                         | SAFE   | LOW        |
+| Missing Helmet               | UNSAFE | MEDIUM     |
+| Missing Safety Vest          | UNSAFE | MEDIUM     |
+| Missing Helmet & Safety Vest | UNSAFE | HIGH       |
 
 ---
 
@@ -122,22 +131,66 @@ After execution, the system generates:
 
 This project can be applied in:
 
-- Construction sites
-- Industrial facilities
-- Manufacturing plants
-- Warehouse safety monitoring
-- PPE compliance inspections
+* Construction sites
+* Industrial facilities
+* Manufacturing plants
+* Warehouse safety monitoring
+* PPE compliance inspections
+
+---
+
+# AI Usage
+
+AI tools (ChatGPT) were used throughout the development process to assist with planning, implementation, debugging, and documentation.
+
+### AI Assisted With
+
+* Planning the project workflow.
+* Suggesting the initial code structure.
+* Assisting with parts of the detection logic.
+* Improving the HTML report layout.
+* Writing and refining the README.
+* Debugging implementation issues.
+
+### My Contributions
+
+* Built and tested the complete PPE detection workflow.
+* Integrated worker, helmet, and safety vest detection.
+* Implemented SAFE / UNSAFE classification.
+* Added LOW / MEDIUM / HIGH risk classification.
+* Generated CSV inspection logs.
+* Created the HTML safety report.
+* Saved unsafe images separately.
+* Tested the project using multiple sample images.
+* Fixed runtime errors and verified the complete pipeline.
+
+### Challenges Solved
+
+* Handling PPE violation detection correctly.
+* Organizing project outputs.
+* Improving report readability.
+* Testing and validating generated results.
+
+### What I Learned
+
+Through this project I gained practical experience in:
+
+* Computer Vision using YOLOv8.
+* Image processing with OpenCV.
+* AI-assisted software development.
+* Debugging Python applications.
+* Building complete end-to-end AI prototypes.
 
 ---
 
 # Future Improvements
 
-- Real-time webcam monitoring
-- Video stream processing
-- Email alert notifications
-- Mobile application integration
-- Live analytics dashboard
-- Multi-worker tracking
+* Real-time webcam monitoring.
+* Video stream processing.
+* Email alert notifications.
+* Mobile application integration.
+* Live analytics dashboard.
+* Multi-worker tracking.
 
 ---
 
@@ -145,12 +198,12 @@ This project can be applied in:
 
 **Developed by**
 
-- Noon Abdelrahman
+* Noon Abdelrahman
 
 ---
 
 # License
 
-This project was developed as an AI-based Computer Vision project for educational and internship demonstration purposes.
+This project was developed as an AI-based Computer Vision prototype for educational and internship demonstration purposes.
 
 © 2026
