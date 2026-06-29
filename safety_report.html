@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>NEXTA Smart PPE Safety Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 30px;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 1400px;
+            margin: auto;
+        }
+        h1 {
+            margin-bottom: 5px;
+            color: #111827;
+        }
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+        .card h2 {
+            margin: 0;
+            font-size: 30px;
+        }
+        .card p {
+            margin: 8px 0 0;
+            color: #6b7280;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        th {
+            background: #111827;
+            color: white;
+        }
+        .badge {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-weight: bold;
+            color: white;
+            font-size: 12px;
+        }
+        .safe {
+            background: #16a34a;
+        }
+        .unsafe {
+            background: #dc2626;
+        }
+        .check {
+            background: #f59e0b;
+        }
+        a {
+            color: #2563eb;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .footer {
+            margin-top: 20px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NEXTA Smart PPE Safety Inspector</h1>
+        <div class="subtitle">
+            Automatically generated PPE inspection report using a fine-tuned YOLOv8 model.
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h2>3</h2>
+                <p>Total Images</p>
+            </div>
+            <div class="card">
+                <h2>1</h2>
+                <p>Safe Images</p>
+            </div>
+            <div class="card">
+                <h2>2</h2>
+                <p>Unsafe / Check Images</p>
+            </div>
+            <div class="card">
+                <h2>2</h2>
+                <p>Total Violations</p>
+            </div>
+            <div class="card">
+                <h2>33.3%</h2>
+                <p>Compliance Rate</p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Status</th>
+                    <th>Risk</th>
+                    <th>Safety Score</th>
+                    <th>Violations</th>
+                    <th>Recommendation</th>
+                    <th>Worker</th>
+                    <th>Helmet</th>
+                    <th>Vest</th>
+                    <th>Output</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr>
+            <td>test_safe1.jpg</td>
+            <td><span class="badge safe">SAFE</span></td>
+            <td>LOW</td>
+            <td>100%</td>
+            <td>None</td>
+            <td>No action required. PPE compliance looks good.</td>
+            <td>True</td>
+            <td>True</td>
+            <td>True</td>
+            <td><a href="outputs/result_test_safe1.jpg" target="_blank">View Output</a></td>
+            <td>2026-06-29 22:50:14</td>
+        </tr>
+        
+        <tr>
+            <td>unsafe_helmet.jpg</td>
+            <td><span class="badge unsafe">UNSAFE</span></td>
+            <td>MEDIUM</td>
+            <td>60%</td>
+            <td>Missing Helmet</td>
+            <td>Provide a certified hard hat before entering the site.</td>
+            <td>True</td>
+            <td>False</td>
+            <td>True</td>
+            <td><a href="outputs/result_unsafe_helmet.jpg" target="_blank">View Output</a></td>
+            <td>2026-06-29 22:50:14</td>
+        </tr>
+        
+        <tr>
+            <td>unsafe_vest.jpg</td>
+            <td><span class="badge unsafe">UNSAFE</span></td>
+            <td>MEDIUM</td>
+            <td>60%</td>
+            <td>Missing Safety Vest</td>
+            <td>Wear a reflective safety vest for visibility and compliance.</td>
+            <td>True</td>
+            <td>True</td>
+            <td>False</td>
+            <td><a href="outputs/result_unsafe_vest.jpg" target="_blank">View Output</a></td>
+            <td>2026-06-29 22:50:14</td>
+        </tr>
+        
+            </tbody>
+        </table>
+
+        <div class="footer">
+            Generated by NEXTA Smart PPE Safety Inspector prototype.
+        </div>
+    </div>
+</body>
+</html>
