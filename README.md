@@ -7,6 +7,15 @@ PPE Safety Checker is an AI-powered computer vision application developed using 
 The system detects workers, safety helmets, and safety vests, identifies PPE violations, classifies the inspection status, assigns a risk level, and automatically generates inspection reports.
 
 ---
+# VisionGuard AI - PPE Safety Checker
+
+AI-powered PPE detection workflow using a Vision-Language Model.
+
+## 🎥 Demo Video
+
+Watch the demo here:
+
+https://udksa-my.sharepoint.com/:v:/g/personal/2240009097_iau_edu_sa/IQDHhadkB3FAQat-UzIJqvvcARwAdJrzyCe1RjliRUZf2xE?e=uphMaB
 
 # Objectives
 
