@@ -1,192 +1,676 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>NEXTA Smart PPE Safety Report</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 30px;
-            color: #1f2937;
-        }
-        .container {
-            max-width: 1400px;
-            margin: auto;
-        }
-        h1 {
-            margin-bottom: 5px;
-            color: #111827;
-        }
-        .subtitle {
-            color: #6b7280;
-            margin-bottom: 25px;
-        }
+<meta charset="UTF-8">
+<title>NEXTA Smart PPE Safety Dashboard</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
+    }
+
+    .page {
+        max-width: 1500px;
+        margin: auto;
+        padding: 30px;
+    }
+
+    .hero {
+        background: linear-gradient(135deg, #111827, #1e3a8a);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 32px;
+        margin-bottom: 24px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .hero h1 {
+        margin: 0;
+        font-size: 36px;
+        letter-spacing: -0.5px;
+    }
+
+    .hero p {
+        color: #cbd5e1;
+        font-size: 16px;
+        margin-top: 10px;
+        max-width: 900px;
+    }
+
+    .summary-box {
+        margin-top: 20px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 18px;
+        line-height: 1.7;
+        color: #f8fafc;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .card {
+        background: #111827;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+    }
+
+    .card .label {
+        color: #94a3b8;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .card .value {
+        font-size: 32px;
+        font-weight: 800;
+        color: white;
+    }
+
+    .card.safe-card .value {
+        color: #22c55e;
+    }
+
+    .card.unsafe-card .value {
+        color: #ef4444;
+    }
+
+    .card.warning-card .value {
+        color: #f59e0b;
+    }
+
+    .card.score-card .value {
+        color: #38bdf8;
+    }
+
+    .analytics {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 18px;
+        margin-bottom: 24px;
+    }
+
+    .panel {
+        background: #111827;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 22px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+    }
+
+    .panel h2 {
+        margin-top: 0;
+        margin-bottom: 18px;
+        font-size: 20px;
+    }
+
+    .compliance-circle {
+        width: 190px;
+        height: 190px;
+        margin: 10px auto 18px;
+        border-radius: 50%;
+        background:
+            conic-gradient(#22c55e 0deg 119.88deg, #334155 119.88deg 360deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .compliance-circle::after {
+        content: "";
+        width: 130px;
+        height: 130px;
+        background: #111827;
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    .circle-text {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .circle-text strong {
+        display: block;
+        font-size: 34px;
+        color: white;
+    }
+
+    .circle-text span {
+        color: #94a3b8;
+        font-size: 13px;
+    }
+
+    .risk-row {
+        margin-bottom: 16px;
+    }
+
+    .risk-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 7px;
+        color: #cbd5e1;
+        font-size: 14px;
+    }
+
+    .bar {
+        height: 13px;
+        background: #334155;
+        border-radius: 999px;
+        overflow: hidden;
+    }
+
+    .bar-fill {
+        height: 100%;
+        border-radius: 999px;
+    }
+
+    .low-fill {
+        background: #22c55e;
+        width: 33.3%;
+    }
+
+    .medium-fill {
+        background: #f59e0b;
+        width: 50.0%;
+    }
+
+    .high-fill {
+        background: #ef4444;
+        width: 0.0%;
+    }
+
+    .unknown-fill {
+        background: #64748b;
+        width: 16.7%;
+    }
+
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .toolbar h2 {
+        margin: 0;
+        font-size: 22px;
+    }
+
+    input {
+        background: #020617;
+        border: 1px solid #334155;
+        color: white;
+        padding: 12px 14px;
+        border-radius: 12px;
+        width: 300px;
+        outline: none;
+    }
+
+    input::placeholder {
+        color: #64748b;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #111827;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    th, td {
+        padding: 13px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        text-align: left;
+        font-size: 13px;
+        vertical-align: middle;
+    }
+
+    th {
+        background: #020617;
+        color: #f8fafc;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    tr:hover {
+        background: rgba(255,255,255,0.04);
+    }
+
+    .thumb {
+        width: 90px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .image-name {
+        font-weight: 600;
+        color: #f8fafc;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 7px 11px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+        color: white;
+        white-space: nowrap;
+    }
+
+    .safe {
+        background: #16a34a;
+    }
+
+    .unsafe {
+        background: #dc2626;
+    }
+
+    .check {
+        background: #f59e0b;
+    }
+
+    .low {
+        background: #16a34a;
+    }
+
+    .medium {
+        background: #f59e0b;
+    }
+
+    .high {
+        background: #dc2626;
+    }
+
+    .unknown {
+        background: #64748b;
+    }
+
+    .score-wrap span {
+        font-weight: 700;
+    }
+
+    .score-bar {
+        margin-top: 6px;
+        height: 8px;
+        background: #334155;
+        border-radius: 999px;
+        overflow: hidden;
+        width: 90px;
+    }
+
+    .score-fill {
+        height: 100%;
+        background: #38bdf8;
+        border-radius: 999px;
+    }
+
+    .action {
+        display: inline-block;
+        padding: 7px 10px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .no-action {
+        background: rgba(34,197,94,0.15);
+        color: #86efac;
+    }
+
+    .wear-helmet, .wear-vest, .manual-review, .review {
+        background: rgba(245,158,11,0.16);
+        color: #fcd34d;
+    }
+
+    .stop-work {
+        background: rgba(239,68,68,0.16);
+        color: #fca5a5;
+    }
+
+    .center {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .footer {
+        text-align: center;
+        color: #94a3b8;
+        margin-top: 24px;
+        font-size: 13px;
+    }
+
+    @media (max-width: 1100px) {
         .cards {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
-            margin-bottom: 28px;
+            grid-template-columns: repeat(2, 1fr);
         }
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 20px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+
+        .analytics {
+            grid-template-columns: 1fr;
         }
-        .card h2 {
-            margin: 0;
-            font-size: 30px;
-        }
-        .card p {
-            margin: 8px 0 0;
-            color: #6b7280;
-        }
-        table {
+
+        input {
             width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
         }
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #e5e7eb;
-            text-align: left;
-            font-size: 13px;
-            vertical-align: top;
+
+        .toolbar {
+            flex-direction: column;
+            align-items: stretch;
         }
-        th {
-            background: #111827;
-            color: white;
-        }
-        .badge {
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-weight: bold;
-            color: white;
-            font-size: 12px;
-        }
-        .safe {
-            background: #16a34a;
-        }
-        .unsafe {
-            background: #dc2626;
-        }
-        .check {
-            background: #f59e0b;
-        }
-        a {
-            color: #2563eb;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .footer {
-            margin-top: 20px;
-            color: #6b7280;
-            font-size: 13px;
-        }
-    </style>
+    }
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>NEXTA Smart PPE Safety Inspector</h1>
-        <div class="subtitle">
-            Automatically generated PPE inspection report using a fine-tuned YOLOv8 model.
+<div class="page">
+
+    <section class="hero">
+        <h1>🦺 NEXTA Smart PPE Safety Dashboard</h1>
+        <p>
+            AI-powered construction site inspection dashboard using YOLOv8.
+            This report summarizes PPE compliance, safety risks, detected violations, and recommended actions.
+        </p>
+
+        <div class="summary-box">
+            <strong>Executive Summary:</strong>
+            The system processed <strong>6</strong> images.
+            <strong>2</strong> were safe, while
+            <strong>4</strong> required attention.
+            The overall compliance rate is <strong>33.3%</strong>,
+            with an average safety score of <strong>63.3%</strong>.
+        </div>
+    </section>
+
+    <section class="cards">
+        <div class="card">
+            <div class="label">Total Images</div>
+            <div class="value">6</div>
+        </div>
+        <div class="card safe-card">
+            <div class="label">Safe Images</div>
+            <div class="value">2</div>
+        </div>
+        <div class="card unsafe-card">
+            <div class="label">Unsafe / Check</div>
+            <div class="value">4</div>
+        </div>
+        <div class="card warning-card">
+            <div class="label">Total Violations</div>
+            <div class="value">4</div>
+        </div>
+        <div class="card score-card">
+            <div class="label">Compliance Rate</div>
+            <div class="value">33.3%</div>
+        </div>
+        <div class="card score-card">
+            <div class="label">Average Score</div>
+            <div class="value">63.3%</div>
+        </div>
+    </section>
+
+    <section class="analytics">
+        <div class="panel">
+            <h2>Compliance Overview</h2>
+            <div class="compliance-circle">
+                <div class="circle-text">
+                    <strong>33.3%</strong>
+                    <span>Compliance</span>
+                </div>
+            </div>
         </div>
 
-        <div class="cards">
-            <div class="card">
-                <h2>3</h2>
-                <p>Total Images</p>
+        <div class="panel">
+            <h2>Risk Distribution</h2>
+
+            <div class="risk-row">
+                <div class="risk-label"><span>LOW Risk</span><strong>2</strong></div>
+                <div class="bar"><div class="bar-fill low-fill"></div></div>
             </div>
-            <div class="card">
-                <h2>1</h2>
-                <p>Safe Images</p>
+
+            <div class="risk-row">
+                <div class="risk-label"><span>MEDIUM Risk</span><strong>3</strong></div>
+                <div class="bar"><div class="bar-fill medium-fill"></div></div>
             </div>
-            <div class="card">
-                <h2>2</h2>
-                <p>Unsafe / Check Images</p>
+
+            <div class="risk-row">
+                <div class="risk-label"><span>HIGH Risk</span><strong>0</strong></div>
+                <div class="bar"><div class="bar-fill high-fill"></div></div>
             </div>
-            <div class="card">
-                <h2>2</h2>
-                <p>Total Violations</p>
-            </div>
-            <div class="card">
-                <h2>33.3%</h2>
-                <p>Compliance Rate</p>
+
+            <div class="risk-row">
+                <div class="risk-label"><span>UNKNOWN / Check</span><strong>1</strong></div>
+                <div class="bar"><div class="bar-fill unknown-fill"></div></div>
             </div>
         </div>
+    </section>
 
-        <table>
+    <section class="panel">
+        <div class="toolbar">
+            <h2>Inspection Results</h2>
+            <input type="text" id="searchInput" placeholder="Search by image, status, risk, or violation...">
+        </div>
+
+        <table id="inspectionTable">
             <thead>
                 <tr>
+                    <th>Preview</th>
                     <th>Image</th>
                     <th>Status</th>
                     <th>Risk</th>
-                    <th>Safety Score</th>
+                    <th>Score</th>
                     <th>Violations</th>
+                    <th>Action</th>
                     <th>Recommendation</th>
                     <th>Worker</th>
                     <th>Helmet</th>
                     <th>Vest</th>
-                    <th>Output</th>
                     <th>Time</th>
                 </tr>
             </thead>
             <tbody>
                 
-        <tr>
-            <td>test_safe1.jpg</td>
-            <td><span class="badge safe">SAFE</span></td>
-            <td>LOW</td>
-            <td>100%</td>
-            <td>None</td>
-            <td>No action required. PPE compliance looks good.</td>
-            <td>True</td>
-            <td>True</td>
-            <td>True</td>
-            <td><a href="outputs/result_test_safe1.jpg" target="_blank">View Output</a></td>
-            <td>2026-06-29 22:50:14</td>
-        </tr>
-        
-        <tr>
-            <td>unsafe_helmet.jpg</td>
-            <td><span class="badge unsafe">UNSAFE</span></td>
-            <td>MEDIUM</td>
-            <td>60%</td>
-            <td>Missing Helmet</td>
-            <td>Provide a certified hard hat before entering the site.</td>
-            <td>True</td>
-            <td>False</td>
-            <td>True</td>
-            <td><a href="outputs/result_unsafe_helmet.jpg" target="_blank">View Output</a></td>
-            <td>2026-06-29 22:50:14</td>
-        </tr>
-        
-        <tr>
-            <td>unsafe_vest.jpg</td>
-            <td><span class="badge unsafe">UNSAFE</span></td>
-            <td>MEDIUM</td>
-            <td>60%</td>
+        <tr data-status="UNSAFE" data-risk="MEDIUM">
+            <td>
+                <a href="outputs/result_high_risk.jpg" target="_blank">
+                    <img class="thumb" src="outputs/result_high_risk.jpg" alt="output image">
+                </a>
+            </td>
+            <td class="image-name">high_risk.jpg</td>
+            <td><span class="badge status unsafe">UNSAFE</span></td>
+            <td><span class="badge risk medium">MEDIUM</span></td>
+            <td>
+                <div class="score-wrap">
+                    <span>60%</span>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width:60%"></div>
+                    </div>
+                </div>
+            </td>
             <td>Missing Safety Vest</td>
+            <td><span class="action wear-vest">Wear Vest</span></td>
             <td>Wear a reflective safety vest for visibility and compliance.</td>
-            <td>True</td>
-            <td>True</td>
-            <td>False</td>
-            <td><a href="outputs/result_unsafe_vest.jpg" target="_blank">View Output</a></td>
-            <td>2026-06-29 22:50:14</td>
+            <td class="center">✅</td>
+            <td class="center">✅</td>
+            <td class="center">❌</td>
+            <td>2026-06-30 10:28:21</td>
+        </tr>
+        
+        <tr data-status="SAFE" data-risk="LOW">
+            <td>
+                <a href="outputs/result_multiple_workers.jpg" target="_blank">
+                    <img class="thumb" src="outputs/result_multiple_workers.jpg" alt="output image">
+                </a>
+            </td>
+            <td class="image-name">multiple_workers.jpg</td>
+            <td><span class="badge status safe">SAFE</span></td>
+            <td><span class="badge risk low">LOW</span></td>
+            <td>
+                <div class="score-wrap">
+                    <span>100%</span>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width:100%"></div>
+                    </div>
+                </div>
+            </td>
+            <td>None</td>
+            <td><span class="action no-action">No Action</span></td>
+            <td>No action required. PPE compliance looks good.</td>
+            <td class="center">✅</td>
+            <td class="center">✅</td>
+            <td class="center">✅</td>
+            <td>2026-06-30 10:28:22</td>
+        </tr>
+        
+        <tr data-status="CHECK" data-risk="UNKNOWN">
+            <td>
+                <a href="outputs/result_risk.jpg" target="_blank">
+                    <img class="thumb" src="outputs/result_risk.jpg" alt="output image">
+                </a>
+            </td>
+            <td class="image-name">risk.jpg</td>
+            <td><span class="badge status check">CHECK</span></td>
+            <td><span class="badge risk unknown">UNKNOWN</span></td>
+            <td>
+                <div class="score-wrap">
+                    <span>0%</span>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width:0%"></div>
+                    </div>
+                </div>
+            </td>
+            <td>No Worker Detected</td>
+            <td><span class="action manual-review">Manual Review</span></td>
+            <td>Review the image manually because no worker was detected.</td>
+            <td class="center">❌</td>
+            <td class="center">✅</td>
+            <td class="center">❌</td>
+            <td>2026-06-30 10:28:22</td>
+        </tr>
+        
+        <tr data-status="SAFE" data-risk="LOW">
+            <td>
+                <a href="outputs/result_test_safe1.jpg" target="_blank">
+                    <img class="thumb" src="outputs/result_test_safe1.jpg" alt="output image">
+                </a>
+            </td>
+            <td class="image-name">test_safe1.jpg</td>
+            <td><span class="badge status safe">SAFE</span></td>
+            <td><span class="badge risk low">LOW</span></td>
+            <td>
+                <div class="score-wrap">
+                    <span>100%</span>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width:100%"></div>
+                    </div>
+                </div>
+            </td>
+            <td>None</td>
+            <td><span class="action no-action">No Action</span></td>
+            <td>No action required. PPE compliance looks good.</td>
+            <td class="center">✅</td>
+            <td class="center">✅</td>
+            <td class="center">✅</td>
+            <td>2026-06-30 10:28:22</td>
+        </tr>
+        
+        <tr data-status="UNSAFE" data-risk="MEDIUM">
+            <td>
+                <a href="outputs/result_unsafe_helmet.jpg" target="_blank">
+                    <img class="thumb" src="outputs/result_unsafe_helmet.jpg" alt="output image">
+                </a>
+            </td>
+            <td class="image-name">unsafe_helmet.jpg</td>
+            <td><span class="badge status unsafe">UNSAFE</span></td>
+            <td><span class="badge risk medium">MEDIUM</span></td>
+            <td>
+                <div class="score-wrap">
+                    <span>60%</span>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width:60%"></div>
+                    </div>
+                </div>
+            </td>
+            <td>Missing Helmet</td>
+            <td><span class="action wear-helmet">Wear Helmet</span></td>
+            <td>Provide a certified hard hat before entering the site.</td>
+            <td class="center">✅</td>
+            <td class="center">❌</td>
+            <td class="center">✅</td>
+            <td>2026-06-30 10:28:22</td>
+        </tr>
+        
+        <tr data-status="UNSAFE" data-risk="MEDIUM">
+            <td>
+                <a href="outputs/result_unsafe_vest.jpg" target="_blank">
+                    <img class="thumb" src="outputs/result_unsafe_vest.jpg" alt="output image">
+                </a>
+            </td>
+            <td class="image-name">unsafe_vest.jpg</td>
+            <td><span class="badge status unsafe">UNSAFE</span></td>
+            <td><span class="badge risk medium">MEDIUM</span></td>
+            <td>
+                <div class="score-wrap">
+                    <span>60%</span>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width:60%"></div>
+                    </div>
+                </div>
+            </td>
+            <td>Missing Safety Vest</td>
+            <td><span class="action wear-vest">Wear Vest</span></td>
+            <td>Wear a reflective safety vest for visibility and compliance.</td>
+            <td class="center">✅</td>
+            <td class="center">✅</td>
+            <td class="center">❌</td>
+            <td>2026-06-30 10:28:22</td>
         </tr>
         
             </tbody>
         </table>
+    </section>
 
-        <div class="footer">
-            Generated by NEXTA Smart PPE Safety Inspector prototype.
-        </div>
+    <div class="footer">
+        Generated automatically by NEXTA Smart PPE Safety Inspector Prototype · YOLOv8 · Python · OpenCV
     </div>
+
+</div>
+
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const tableRows = document.querySelectorAll("#inspectionTable tbody tr");
+
+    searchInput.addEventListener("keyup", function() {
+        const value = searchInput.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(value) ? "" : "none";
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -1,4 +1,7 @@
-﻿Image,Worker Detected,Helmet Detected,Vest Detected,Violations,Status,Risk Level,Safety Score,Recommendation,Output Image,Time
-test_safe1.jpg,True,True,True,None,SAFE,LOW,100,No action required. PPE compliance looks good.,outputs/result_test_safe1.jpg,2026-06-29 22:50:14
-unsafe_helmet.jpg,True,False,True,Missing Helmet,UNSAFE,MEDIUM,60,Provide a certified hard hat before entering the site.,outputs/result_unsafe_helmet.jpg,2026-06-29 22:50:14
-unsafe_vest.jpg,True,True,False,Missing Safety Vest,UNSAFE,MEDIUM,60,Wear a reflective safety vest for visibility and compliance.,outputs/result_unsafe_vest.jpg,2026-06-29 22:50:14
+﻿Image,Worker Detected,Helmet Detected,Vest Detected,Violations,Status,Risk Level,Safety Score,Recommendation,Action Label,Output Image,Time
+high_risk.jpg,True,True,False,Missing Safety Vest,UNSAFE,MEDIUM,60,Wear a reflective safety vest for visibility and compliance.,Wear Vest,outputs/result_high_risk.jpg,2026-06-30 10:28:21
+multiple_workers.jpg,True,True,True,None,SAFE,LOW,100,No action required. PPE compliance looks good.,No Action,outputs/result_multiple_workers.jpg,2026-06-30 10:28:22
+risk.jpg,False,True,False,No Worker Detected,CHECK,UNKNOWN,0,Review the image manually because no worker was detected.,Manual Review,outputs/result_risk.jpg,2026-06-30 10:28:22
+test_safe1.jpg,True,True,True,None,SAFE,LOW,100,No action required. PPE compliance looks good.,No Action,outputs/result_test_safe1.jpg,2026-06-30 10:28:22
+unsafe_helmet.jpg,True,False,True,Missing Helmet,UNSAFE,MEDIUM,60,Provide a certified hard hat before entering the site.,Wear Helmet,outputs/result_unsafe_helmet.jpg,2026-06-30 10:28:22
+unsafe_vest.jpg,True,True,False,Missing Safety Vest,UNSAFE,MEDIUM,60,Wear a reflective safety vest for visibility and compliance.,Wear Vest,outputs/result_unsafe_vest.jpg,2026-06-30 10:28:22
